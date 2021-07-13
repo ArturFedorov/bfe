@@ -1,7 +1,11 @@
+/**
+ * @param {string} html
+ * @param {string[]} keywords
+ */
 class TrieNode {
   constructor() {
     this.children = new Map();
-    this.isEndOfWord = false;
+    this.end = false;
   }
 }
 
@@ -10,54 +14,49 @@ class Trie {
     this.root = new TrieNode();
   }
 
-  insert(word) {
-    let currentNode = this.root;
-    for (const char of word) {
-      if (!currentNode.children.has(char)) {
-        currentNode.children.set(char, new TrieNode());
+  addWord(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      let char = word[i];
+      if (!node.children.get(char)) {
+        node.children.set(char, new TrieNode());
       }
-      currentNode = currentNode.children.get(char);
+      node = node.children.get(char);
     }
+    node.end = true;
+  }
 
-    currentNode.isEndOfWord = true;
+  highlightWords(s) {
+    let res = '';
+    let temp = '';
+    let node = this.root;
+    for (let i = 0; i < s.length; i++) {
+      let char = s[i];
+      if (node.children.get(char)) {
+        temp += char;
+        node = node.children.get(char);
+      } else if (this.root.children.get(char)) {
+        temp += char;
+        node = this.root.children.get(char);
+      } else {
+        if (temp) {
+          res += `<em>${temp}</em>` + char;
+          temp = '';
+        } else {
+          res += char;
+        }
+        node = this.root;
+      }
+    }
+    if (temp) {
+      res += `<em>${temp}</em>`;
+    };
+    return res;
   }
 }
 
-/**
- * @param {string} html
- * @param {string[]} keywords
- */
 function highlightKeywords(html, keywords) {
   const trie = new Trie();
-  keywords.forEach((keyword) => {
-    trie.insert(keyword);
-  });
-
-  let node = trie.root;
-  let containedString = '';
-  let highlightedString = '';
-  for (const char of html) {
-    if (!node.children.has(char) && !containedString) {
-      highlightedString += char;
-      continue;
-    }
-
-    if (node.children.has(char)) {
-      containedString += char;
-      node = node.children.get(char);
-      if (node.isEndOfWord && node.children.size === 0) {
-        node = trie.root;
-      }
-      continue;
-    }
-
-    highlightedString += `<em>${containedString}</em>${char}`;
-    containedString = '';
-  }
-
-  if (containedString) {
-    highlightedString += `<em>${containedString}</em>`;
-  }
-
-  return highlightedString;
+  keywords.forEach(word => trie.addWord(word));
+  return trie.highlightWords(html);
 };
