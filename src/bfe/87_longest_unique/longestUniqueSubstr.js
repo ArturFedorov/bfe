@@ -13,17 +13,18 @@ function longestUniqueSubstr(str) {
     let char = str[i];
     if(!cache.has(char))  {
       cache.add(char);
-      result += char
     } else {
-      return result;
+      const a = [...cache].join('');
+
+      result = a.length > result.length ? a : result;
+      cache.clear();
     }
   }
+
+  return result;
 }
 
 
-console.log(longestUniqueSubstr('aaaaa'));
-console.log(longestUniqueSubstr('abcabc'));
-console.log(longestUniqueSubstr('a12#2'));
 
 // function longestUniqueSubstr(str, set = new Set()) {
 //   if(set.has(str[0])) {
@@ -33,3 +34,8 @@ console.log(longestUniqueSubstr('a12#2'));
 //     return longestUniqueSubstr(str.substring(1), set);
 //   }
 // }
+
+
+console.log(longestUniqueSubstr('aaaaa'));
+console.log(longestUniqueSubstr('abcabc'));
+console.log(longestUniqueSubstr('abcabcdefg'));
