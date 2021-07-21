@@ -34,3 +34,35 @@ const sub3 = emitter.subscribe('event1', () => console.log('3'));
 emitter.emit('event1', 1, 2);
 
 sub3.release();
+
+
+class EventEmitter {
+  constructor() {
+    this.subscribers = new Map();
+  }
+
+  subscribe(eventName, callback) {
+    if(!this.subscribers.has(eventName)) {
+      this.subscribers.set(eventName, [callback]);
+    } else {
+      this.subscribers.get(eventName).push(callback);
+    }
+
+    return {
+      release: () => {
+        const cbs = this.subscribers.get(eventName);
+        const idx = cbs.findIndex(i => i === callback);
+
+        if(idx > -1) {
+          cbs.splice(idx, 1);
+        }
+      }
+    }
+  }
+
+  emit(eventName, ...args) {
+    const subs = this.subscribers.get(eventName) || [];
+
+    subs.forEach(cb => cb(...args));
+  }
+}

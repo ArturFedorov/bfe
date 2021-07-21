@@ -17,6 +17,6 @@ function randomTasks(array) {
   return results;
 }
 
-const arr = createArrayFromNumber(90).map(i => i+ 1);
+const arr = createArrayFromNumber(95).map(i => i+ 1);
 
 console.log(randomTasks(arr));
