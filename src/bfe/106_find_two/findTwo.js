@@ -35,6 +35,7 @@ function findTwo2(arr) {
   for (let i = 0; i < arr.length; i++) {
     const num = arr[i], opposite = num * -1;
 
+    console.log(map[opposite], num, opposite, 'opposite');
     if(map[opposite] !== undefined) return [map[opposite], i];
     map[num] = i;
   }
