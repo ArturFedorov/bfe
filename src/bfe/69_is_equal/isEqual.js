@@ -19,3 +19,5 @@ function isEqual(a, b, map = new Map()) {
   }
   return false;
 }
+
+module.exports = isEqual;
