@@ -26,14 +26,14 @@ function longestUniqueSubstr(str) {
 
 
 
-// function longestUniqueSubstr(str, set = new Set()) {
-//   if(set.has(str[0])) {
-//     return Array.from(set).join('');
-//   } else {
-//     set.add(str[0]);
-//     return longestUniqueSubstr(str.substring(1), set);
-//   }
-// }
+function longestUniqueSubstr(str, set = new Set()) {
+  if(set.has(str[0])) {
+    return Array.from(set).join('');
+  } else {
+    set.add(str[0]);
+    return longestUniqueSubstr(str.substring(1), set);
+  }
+}
 
 
 console.log(longestUniqueSubstr('aaaaa'));
