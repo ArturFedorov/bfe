@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Construct details</title>
+    <style>
+        :root {
+            /* colors */
+            --black:  #121212;
+            --black-lighter: #444444;
+            --crimson: #EB4444;
+            --pale: #8697A9;
+            --pale-light: #C2CBD4;
+            --primary: #35CF9C;
+            --peach: #FF9275;
+            --light: #F5F7FA;
+            --white: #ffffff;
+
+            /* units */
+            --building-unit: 10px;
+            --building-unit-x2: 20px;
+            --building-unit-x3: 30px;
+            --building-unit-x4: 40px;
+            --building-unit-x5: 50px;
+            --border-radius: 4px;
+            --box-shadow: 2px 2px 10px rgba(189, 189, 189, 0.15);
+            --font-size-caption: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+        }
+
+        h1  {
+            border-radius: var(--border-radius);
+            color: var(--white);
+            margin: 0 0 var(--building-unit-x3) 0;
+            background-color: var(--pale);
+            padding: var(--building-unit) var(--building-unit-x2);
+        }
+
+        h4 {
+            font-size: var(--font-size-caption);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section:not(:last-child) {
+            margin-bottom: var(--building-unit-x4);
+        }
+
+        .container {
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            background-color: var(--white);
+            width: 100%;
+            margin: var(--building-unit-x3) auto 0 auto;
+            padding: 0 var(--building-unit-x5);
+            min-width: 600px;
+            max-width: 1750px;
+            padding: var(--building-unit-x3);
+            min-height: 100vh;
+        }
+
+        .label {
+            border: 1px solid var(--pale-light);
+            border-radius: 5px;
+            color: var(--pale);
+            display: inline-block;
+            text-align: center;
+            font-size: 8px;
+            font-weight: bold;
+            min-width: 65px;
+            padding: 2px var(--building-unit);
+        }
+
+        .input {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--pale-light);
+            border-radius: var(--border-radius);
+            padding: 5px var(--building-unit);
+            margin-bottom: var(--building-unit);
+        }
+
+        .input label {
+            align-self: flex-start;
+            color: var(--white);
+            font-size: var(--font-size-caption);
+            font-weight: 600;
+            background-color: var(--pale-light);
+            border-radius: var(--border-radius);
+            padding: 4px var(--building-unit);
+        }
+
+        .input p {
+            flex: 1;
+            font-size: var(--font-size-caption);
+            height: 100%;
+            margin: 0;
+            margin-left: var(--building-unit);
+            word-break: break-all;
+            line-height: 150%;
+        }
+
+        .is-primary {
+            background-color: var(--primary) !important;
+        }
+
+        .is-warning {
+            background-color: var(--peach) !important;
+        }
+
+        .is-secondary {
+            background-color: var(--pale-light) !important;
+        }
+
+        .is-primary-text {
+            color: var(--primary) !important;
+        }
+
+        .is-warning-text {
+            color: var(--peach) !important;
+        }
+
+        .is-secondary-text {
+            color: var(--pale-light) !important;
+        }
+
+    </style>
+</head>
+<body>
+   <main class="container">
+       <h1>Construct $PK</h1>
+
+       <!-- Time frames -->
+       <section class="section">
+           <h4>Time frames</h4>
+           <div class="input">
+               <label for="requestTime">Order creation date</label>
+               <p id="requestTime">$requestTime</p>
+           </div>
+           <div class="input">
+               <label for="qcStageEnd">Order completion date</label>
+               <p id="qcStageEnd">$qcStageEnd</p>
+           </div>
+       </section>
+
+       <!-- AA sequence -->
+       <section class="section">
+           <h4>AA Sequences</h4>
+           <div class="input">
+               <label for="aasequence" class="is-primary">AA Sequences</label>
+               <p id="aasequence">
+                   <span class="is-primary-text">$nTerminalSequence</span>
+                   <span class="is-warning-text">$therapeuticPolypeptideSequence</span>
+                   <span class="is-secondary-text">$cTerminalSequence</span>
+               </p>
+           </div>
+           <span class="label is-primary-text">N Terminal</span>
+           <span class="label is-secondary-text">Therapeutic Polypeptide</span>
+           <span class="label is-warning-text">C Terminal</span>
+       </section>
+
+       <!-- N terminal -->
+       <section class="section">
+           <h4>N Terminal</h4>
+           <div class="input">
+               <label for="nTerminal" class="is-primary">N Terminal</label>
+               <p id="nTerminal">$nTerminal</p>
+           </div>
+           <div class="input">
+               <label for="nTerminalSequence" class="is-primary">Sequence</label>
+               <p id="nTerminalSequence">$nTerminalSequence</p>
+           </div>
+       </section>
+
+       <!-- Therapeutic Polypeptide -->
+       <section class="section">
+           <h4>Therapeutic Polypeptide</h4>
+           <div class="input">
+               <label for="therapeuticPolypeptide" class="is-secondary">Therapeutic Polypeptide</label>
+               <p id="therapeuticPolypeptide">$therapeuticPolypeptide</p>
+           </div>
+           <div class="input">
+               <label for="therapeuticPolypeptideSequence" class="is-secondary">Sequence</label>
+               <p id="therapeuticPolypeptideSequence">$therapeuticPolypeptideSequence</p>
+           </div>
+       </section>
+
+       <!-- C terminal -->
+       <section class="section">
+           <h4>C Terminal</h4>
+           <div class="input">
+               <label for="nTerminal" class="is-warning">C Terminal</label>
+               <p id="cTerminal">$cTerminal</p>
+           </div>
+           <div class="input">
+               <label for="cTerminalSequence" class="is-warning">Sequence</label>
+               <p id="cTerminalSequence">$cTerminalSequence</p>
+           </div>
+       </section>
+
+       <!-- Construct details -->
+       <section class="section">
+           <h4>Construct details</h4>
+           <div class="input">
+               <label for="userName" class="is-primary">User</label>
+               <p id="userName">$userName</p>
+           </div>
+           <div class="input">
+               <label for="constructId">Construct Id</label>
+               <p id="constructId">$PK</p>
+           </div>
+           <div class="input">
+               <label for="orderId">Order Id</label>
+               <p id="orderId">$orderId</p>
+           </div>
+           <div class="input">
+               <label for="topology">Topology</label>
+               <p id="topology">$topology</p>
+           </div>
+           <div class="input">
+               <label for="purificationValue">Purity</label>
+               <p id="purificationValue">$purificationValue</p>
+           </div>
+           <div class="input">
+               <label for="concentration">Concentration Mg/Ml</label>
+               <p id="concentration">$concentration</p>
+           </div>
+           <div class="input">
+               <label for="volume">Volume Ml</label>
+               <p id="volume">$volume</p>
+           </div>
+           <div class="input">
+               <label for="quantity">Ordered Mg</label>
+               <p id="quantity">$quantity</p>
+           </div>
+           <div class="input">
+               <label for="deliveredQuantity" class="is-primary">Delivered Mg</label>
+               <p id="deliveredQuantity">$deliveredQuantity</p>
+           </div>
+       </section>
+   </main>
+</body>
+</html>
