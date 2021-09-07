@@ -17,3 +17,15 @@ console.log(largestDiff([]));
 // 0
 
 console.log(largestDiff([1]));
+function largestDiff(arr) {
+  if(arr.length < 2) return 0;
+  let min = Infinity;
+  let max = -Infinity;
+
+  for(let i= 0 ;i< arr.length;i++) {
+    min = Math.min(arr[i], min);
+    max = Math.max(arr[i], max);
+  }
+
+  return Math.abs(min-max);
+}

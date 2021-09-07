@@ -21,6 +21,22 @@ function intersection2(arr1, arr2) {
   return results;
 }
 
+function intersection3(arr1, arr2) {
+  const collection  = new Set();
+  const joined = [...arr1, ...arr2];
+
+  for(let i = 0; i < joined.length; i++) {
+    if(!collection.has(joined[i])) {
+      collection.add(joined[i]);
+    } else {
+      continue;
+    }
+  }
+
+  return Array.from(collection);
+}
+
 
 console.log(intersection([1, 434, 434, 2, 3, 4], [34, 434, 4, 5, 1]));
 console.log(intersection2([1, 434, 434, 2, 3, 4], [34, 434, 4, 5, 1]));
+console.log(intersection3([1, 434, 434, 2, 3, 4], [34, 434, 4, 5, 1]));

@@ -6,10 +6,8 @@ function flattenThunk(thunk) {
   return function (finalCb) {
     let callback = (err, data) => {
       if(typeof data === 'function') {
-        console.log(callback, 'cb');
         data(callback);
       } else {
-        console.log(finalCb(err, data), 'fc');
         finalCb(err, data);
       }
     }
