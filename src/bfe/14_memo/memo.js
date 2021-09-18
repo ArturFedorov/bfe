@@ -7,10 +7,9 @@ export function memo(func, resolver) {
   return function(...args) {
     const key = resolver ? resolver(...args) : args.join('_');
     if(!cache[key]) {
-      console.log('from casce');
       cache[key] = func.call(this, ...args);
     }
-    console.log('from bofy');
     return cache[key];
   }
 }
+
