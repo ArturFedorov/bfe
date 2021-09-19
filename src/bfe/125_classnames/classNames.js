@@ -2,42 +2,27 @@
  * @param {any[]} args
  * @returns {string}
  */
-// function classNames(...args) {
-//   // your code here
-// }
+function classNames(...args) {
+  return args.flat(Infinity).reduce((result, item) => {
 
+    if(item === null) return result;
 
-class Hello {
-  hello() {
-    console.log('hello')
-  }
+    switch (typeof item) {
+      case 'string':
+      case 'number':
+        result.push(item);
+        break;
+      case 'object':
+        for(let [key, value] of Object.entries(item)) {
+          if(!!value) {
+            result.push(key);
+          }
+        }
+        break;
+    }
 
-  currentHello() {
-    return new Promise((res, rej) => {
-      console.log(this);
-      this.hello();
-      console.log('inside');
-      res('pipa');
-    })
-  }
+    return result;
+
+  }, []).join(' ');
 }
 
-
-const z = new Hello();
-// z.currentHello().then(console.log);
-
-
-class A{
-
-   method(){
-    const this1 = this
-    const a = new Promise((res) => {
-      const this2 = this;
-      res(this1 === this2);
-    })
-
-     return a;
-  }
-}
-
-console.log(new A().method().then(console.log))
