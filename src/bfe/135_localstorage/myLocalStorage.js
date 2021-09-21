@@ -2,16 +2,16 @@ global.myLocalStorage = {
 
   getItem(key) {
     try {
-      const { value, maxAge, createdAt} = JSON.parse(localStorage.getItem(key));
+      const {value, maxAge, createdAt} = JSON.parse(localStorage.getItem(key))
 
-      if(maxAge !== undefined && Date.now() - createdAt >= maxAge) {
-        this.removeItem(key);
-        return null;
+      if (maxAge !== undefined && Date.now() - createdAt >= maxAge) {
+        this.removeItem(key)
+        return null
       }
 
-      return value;
+      return value
     } catch (e) {
-      return null;
+      return null
     }
   },
 
@@ -19,18 +19,18 @@ global.myLocalStorage = {
     const entry = {
       value,
       maxAge,
-      createdAt: new Date()
+      createdAt: Date.now()
     }
 
-    localStorage.setItem(key, JSON.stringify(entry));
+    localStorage.setItem(key, JSON.stringify(entry))
   },
 
   removeItem(key) {
-    return  localStorage.removeItem(key);
+    return localStorage.removeItem(key)
   },
 
   clear() {
-    localStorage.clear();
+    localStorage.clear()
   }
 }
 
