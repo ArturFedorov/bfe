@@ -18,3 +18,17 @@ function throttlePromises(funcs, max){
 
   return Promise.all(workers).then(() => results);
 }
+
+
+const a = Array.from([() => {}, () => {}, () => {}]).entries()
+
+for ([index, item] of a) {
+  console.log(index)
+   break
+}
+
+
+for ([index, item] of a) {
+  console.log(index)
+  break
+}

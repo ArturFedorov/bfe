@@ -1,4 +1,3 @@
-
 /**
  * @param {any} proto
  * @return {object}
