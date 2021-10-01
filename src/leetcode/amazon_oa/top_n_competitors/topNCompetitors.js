@@ -17,7 +17,7 @@ function topNCompetitors(numCompetitors, topNCompetitors, competitors, numReview
       }
     }
   }
-  
+
   let results = Object.entries(countMap);
   results.sort((a, b) => {
     if(a[1] === b[1]) {
