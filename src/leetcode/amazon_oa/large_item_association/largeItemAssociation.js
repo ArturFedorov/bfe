@@ -43,5 +43,5 @@ function dfs(visited, graph, key, result) {
 }
 
 itemAssociation([['Item1', 'Item2'], ['Item3', 'Item4'], ['Item4', 'Item5']])
-// itemAssociation([['Item1', 'Item2'], ['Item2', 'Item3'], ['Item5', 'Item6']])
-// itemAssociation([['Item1', 'Item2'], ['Item2', 'Item3'], ['Item4', 'Item5'], ['Item5', 'Item6']])
+itemAssociation([['Item1', 'Item2'], ['Item2', 'Item3'], ['Item5', 'Item6']])
+itemAssociation([['Item1', 'Item2'], ['Item2', 'Item3'], ['Item4', 'Item5'], ['Item5', 'Item6']])
