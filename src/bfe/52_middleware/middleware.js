@@ -25,7 +25,7 @@ class Middleware {
     let errIdx = 0;
     let self = this;
 
-    function next(nextError) {
+    function next(nextError) { // use arrow drop self
       let args = [req, next];
       let func;
       if(nextError) {

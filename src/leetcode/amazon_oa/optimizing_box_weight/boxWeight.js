@@ -32,9 +32,39 @@ function findSet(n, arr) {
   return arr.slice(0, n);
 }
 
+function findSet2(arr) {
+  let aSetSum = 0;
+  let bSetSum = 0;
+
+  for(let a of arr) {
+    bSetSum+=a;
+  }
+  let lastElement = Infinity;
+
+  arr.sort((a, b) => b- a);
+  let minimalHeaviestSetA = [];
+
+  for(let a of arr) {
+    if(aSetSum > bSetSum) {
+      break;
+    }
+
+    lastElement = a;
+    minimalHeaviestSetA.push(lastElement);
+    aSetSum += lastElement;
+    bSetSum += lastElement;
+  }
+
+  minimalHeaviestSetA.reverse();
+
+  return minimalHeaviestSetA;
+}
+
 
 console.log(findSet(5, [3, 7, 5, 6, 2]));
 console.log(findSet(6, [1, 2, 2, 3, 4, 5]));
+
+console.log(findSet2( [3, 7, 5, 6, 2]), 'second');
 
 // The 2 subsets in arr that satisfy the conditions for A are [5, 7] and [6, 7]:
 // • A is minimal (size 2)
