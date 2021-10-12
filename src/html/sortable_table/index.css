@@ -1,0 +1,36 @@
+body {
+  font-family: Helvetica;
+}
+
+.sortable-table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 95%;
+  margin: 0 auto;
+}
+
+.sortable-table tr {
+  height: 2rem;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.8);
+  user-select: none;
+}
+
+.sortable-table td, .sortable-table th {
+  padding: 0.5rem;
+  border: 1px solid #dddddd;
+}
+
+.sortable-table th {
+  text-align: left;
+  cursor: pointer;
+}
+
+.sortable-table th.asc:after { content: ' ⏫'; }
+.sortable-table th.desc:after { content: ' ⏬'; }
+
+.row-gray {
+  background-color: rgba(0, 0, 0, 0.04);
+}
