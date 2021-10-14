@@ -81,4 +81,103 @@ console.log(pq);
 
 
 
-console.log(pq);
+// // complete the implementation
+// class PriorityQueue {
+//   /**
+//    * @param {(a: any, b: any) => -1 | 0 | 1} compare -
+//    * compare function, similar to parameter of Array.prototype.sort
+//    */
+//   constructor(compare) {
+//     this.compare = (a, b) => compare(a, b) > 0;
+//     this.heap = [];
+//   }
+//
+//   /**
+//    * return {number} amount of items
+//    */
+//   size() {
+//     return this.heap.length;
+//   }
+//
+//   /**
+//    * returns the head element
+//    */
+//   peek() {
+//     return this.heap.length > 0 ? this.heap[0] : undefined;
+//   }
+//
+//   /**
+//    * @param {any} element - new element to add
+//    */
+//   add(element) {
+//     this.heap.push(element);
+//     if(this.heap.length > 1) {
+//       this.moveUp(this.heap.length - 1);
+//     }
+//   }
+//
+//   /**
+//    * remove the head element
+//    * @return {any} the head element
+//    */
+//   poll() {
+//     if(this.heap.length <= 1) {
+//       return this.heap.pop();
+//     }
+//
+//     this.swap(0, this.heap.length - 1);
+//     const removed = this.heap.pop();
+//     if(this.heap.length > 1) {
+//       this.moveDown(0);
+//     }
+//
+//     return removed;
+//   }
+//
+//   moveDown(index) {
+//     if(index >= this.heap.length) return;
+//
+//     const child = this.getChild(index);
+//     if(!child) return;
+//
+//     if(this.compare(this.heap[index], this.heap[child])) {
+//       this.swap(index, child);
+//       this.moveDown(child);
+//     }
+//   }
+//
+//   getChild(index) {
+//     let left = index * 2 + 1;
+//     if(left >= this.heap.length) left = null;
+//     let right = index * 2 + 2;
+//     if(right >= this.heap.length) right = null;
+//
+//     if(left && right) {
+//       return this.compare(this.heap[left], this.heap[right]) ? right : left;
+//     }
+//
+//     if(right) {
+//       return right;
+//     }
+//
+//     if(left) {
+//       return left;
+//     }
+//   }
+//
+//   moveUp(index) {
+//     if(index === 0) {
+//       return;
+//     }
+//
+//     const parent = Math.floor(index / 2);
+//     if(this.compare(this.heap[parent], this.heap[index])) {
+//       this.swap(parent, index);
+//       this.moveUp(parent);
+//     }
+//   }
+//
+//   swap(i, j) {
+//     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+//   }
+// }

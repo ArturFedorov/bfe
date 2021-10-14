@@ -34,7 +34,7 @@ export class AutoComplete extends Component {
     console.log(this.dictionary.getAllWords())
     return this.dictionary.getAllWords()
       .sort()
-      .filter(() => this.dictionary.find(this.searchValue))
+      .filter((item) => this.dictionary.find(this.searchValue))
       .map((word) => `<li class="auto-complete-item">${word}</li>`)
       .join('')
       .trim();
@@ -46,7 +46,10 @@ export class AutoComplete extends Component {
   }
 
   onInput(event) {
-    console.log(event.target.value);
+    const { value } = event.target;
+    this.searchValue = value;
+    console.log(this.buildDropDownList());
+    console.log(this.searchValue);
   }
 
   onFocusin(event) {

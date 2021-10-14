@@ -52,6 +52,10 @@ export class Component {
     this.afterRender();
   }
 
+  refreshChildren() {
+    this.el.innerHTML = this.toHtml();
+  }
+
   /**
    * Returns component template
    * @return {string}
