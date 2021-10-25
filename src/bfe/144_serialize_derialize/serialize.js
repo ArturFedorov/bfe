@@ -1,143 +1,85 @@
+const wrap = (type, value) => {
+  const delimiter = '~';
+
+  return delimiter + (type !== undefined ? `${type}${delimiter}` : '') + (value !== undefined ? `${value}${delimiter}` : '');
+};
+
+
 /**
  * @params {Serializable} data
  * @returns {string}
  */
 const stringify = (data) => {
-  if(typeof data ==='bigint') {
-    return `"${data}"`;
-  }
-
-  if(typeof data === 'string') {
-    return `"${data}"`;
-  }
-
-  if(typeof data === 'function') {
-    return undefined;
-  }
-
-  if(data === Infinity) {
-    return 'Infinity';
-  }
-
-  if(data === -Infinity) {
-    return '-Infinity';
-  }
-
-  //NaN case
-  if(data !== data) {
-    return 'NaN';
-  }
-
-  if(typeof data === 'number') {
-    return `${data}`
-  }
-
-  if(typeof data === 'boolean') {
-    return `${data}`
-  }
-
-  if(data === undefined) {
-    return 'undefined';
-  }
-
-  if(data === null) {
-    return 'null';
-  }
-
-  if(typeof data === 'symbol') {
-    return 'null';
-  }
-
-  if(data instanceof Date) {
-    return `"${data.toISOString()}"`;
-  }
-
-  if(Array.isArray(data)) {
-    const arr = data.map(item => stringify(item));
-    return `[${arr.join(',')}]`;
-  }
-
-  if(typeof data === 'object') {
-    const arr = Object.entries(data).reduce((acc, [key, value]) => {
-      if(value === undefined) {
-        return acc;
-      }
-      acc.push(`"${key}":${stringify(value)}`);
-      return acc;
-    }, []);
-
-    return `{${arr.join(',')}}`;
-  }
+  return JSON.stringify(data, (k, v) => {
+    if (typeof v === 'undefined') {
+      return wrap('undefined');
+    } else if (Number.isNaN(v)) {
+      return wrap('NaN');
+    } else if (v === -Infinity) {
+      return wrap('-Infinity');
+    } else if (Object.is(Infinity, v)) {
+      return wrap('Infinity');
+    } else if (v === null) {
+      return wrap('null');
+    } else if (typeof v === 'boolean') {
+      return wrap('boolean', v);
+    } else if (typeof v === 'bigint') {
+      return wrap('bigint', v);
+    } else if (typeof v === 'string') {
+      return v.replaceAll(wrap(), '\\' + wrap());
+    } else {
+      return v;
+    }
+  });
 }
 
 /**
  * @params {string} data
  * @returns {Serializable}
  */
-const parse = (str) => {
-  if(str === '') {
-    throw new Error();
+const parse = (data) => {
+  let setToUndefinedLater = Symbol();
+
+  const result = JSON.parse(data, (k, v) => {
+    if (typeof v === 'object' || typeof v === 'number') {
+      return v;
+    } else if (v === wrap('undefined')) {
+      if (k) { // is an object property
+        return setToUndefinedLater;
+      } else { // is a primitive
+        return undefined;
+      }
+    } else if (v === wrap('NaN')) {
+      return NaN;
+    } else if (v === wrap('-Infinity')) {
+      return -Infinity;
+    } else if (v === wrap('Infinity')) {
+      return Infinity;
+    } else if (v === wrap('null')) {
+      return null;
+    } else if (v.startsWith(wrap('boolean'))) {
+      return !!v.split(wrap())[2];
+    } else if (v.startsWith(wrap('bigint'))) {
+      return BigInt(v.split(wrap())[2]);
+    } else {
+      return v.replaceAll('\\' + wrap(), wrap());
+    }
+  });
+
+  const recursiveChangeValue = (obj, oldValue, newValue) => {
+    Object.keys(obj).forEach((k) => {
+      if (obj[k] !== null && typeof obj[k] === 'object') {
+        recursiveChangeValue(obj[k], oldValue, newValue);
+      }
+      if (obj[k] === oldValue) {
+        obj[k] = newValue;
+      }
+    });
+  };
+
+  if (result !== null && typeof result === 'object') {
+    recursiveChangeValue(result, setToUndefinedLater, undefined);
   }
 
-  if(str[0]==='\'') {
-    throw new Error('\'');
-  }
-
-  if(str === 'null') {
-    return null;
-  }
-
-  if(str === 'NaN') {
-    return NaN;
-  }
-
-  if(str === 'undefined') {
-    return undefined;
-  }
-
-  if(str === '{}') {
-    return {};
-  }
-
-  if(str === '[]') {
-    return [];
-  }
-
-  if(str === 'true') {
-    return true;
-  }
-
-  if(str === 'false') {
-    return false;
-  }
-
-  if(str[0] === '"') {
-    return str.slice(1, -1);
-  }
-
-  if (str[str.length - 1] === "n") {
-    let num = Number(str.slice(0, str.length - 1));
-    return BigInt(num);
-  }
-
-  if(+str === +str) {
-    return Number(str);
-  }
-
-  if(str[0] === '{') {
-    return str.slice(1, -1).split(',').reduce((acc, item) => {
-      const index = item.indexOf(':');
-      const key = item.slice(0, index);
-      const value = item.slice(index + 1);
-      acc[parse(key)] = parse(value);
-      return acc;
-    }, {})
-  }
-  if(str[0] === '[') {
-    return str.slice(1, -1).split(',').map(item => parse(item));
-  }
+  return result;
 }
-
-
-console.log(parse(stringify([1n, null, undefined, NaN]))); // [1n, null, undefined, NaN]
-console.log(parse(stringify({a: undefined, b: NaN}))); // {a: undefined, b: NaN}
