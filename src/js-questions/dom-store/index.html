@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div data-store-id="x" id="key">Hello</div>
+
+    <script type="module">
+        import { CachedNode, DomStore } from './domStore.js';
+
+        const element = document.getElementById('key');
+        const node = new CachedNode('hello', element);
+        const store = new DomStore();
+
+        store.set(node, 'hello2');
+        console.log(store);
+    </script>
+</body>
+</html>
