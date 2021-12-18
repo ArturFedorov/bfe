@@ -19,7 +19,6 @@ function romanToInteger(str) {
   return backwards.reduce((sum , char) => {
     const value = numerals.get(char);
     sum = sum + (value >= prev ? value : -value);
-    console.log(prev, value,' vale');
     prev = value;
 
     return sum;

@@ -18,3 +18,23 @@ function mySqrt(x) {
     lastGuess = guess;
   }
 }
+
+/**
+ * @param {any} x
+ * @return {number}
+ */
+function mySqrt(x) {
+  if (x === Infinity) return Infinity;
+  if (!Number.isFinite(x) || x < 0) return NaN;
+  let l = 0;
+  let r = x;
+  while (l < r) {
+    const m = Math.ceil((r - l) / 2) + l;
+    if (m * m > x) {
+      r = m - 1;
+    } else {
+      l = m;
+    }
+  }
+  return l;
+}
