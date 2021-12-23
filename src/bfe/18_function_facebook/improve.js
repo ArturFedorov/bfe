@@ -36,4 +36,4 @@ function excludeItems(items, excludes) {
   return items.filter(item => !Object.keys(item).some(key => excludesObject[`${key}_${item[key]}`]))
 }
 
-console.log(excludeItems(items, excludes));;
+console.log(excludeItems(items, excludes));

@@ -22,7 +22,7 @@ function t(translation, data) {
       continue;
     }
 
-    if(leftIndex !== -1 & left === '}}') {
+    if(leftIndex !== -1 && left === '}}') {
       const key = translation.substring(leftIndex + 2, i);
 
       if(data instanceof Object && key in data) {

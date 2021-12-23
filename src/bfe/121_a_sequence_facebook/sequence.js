@@ -35,5 +35,5 @@ function getNthNum(n) {
 }
 
 
-console.log(getNthNum(2));
-console.log(getNthNum(9));
+// console.log(getNthNum(2));
+console.log(getNthNum(30));
