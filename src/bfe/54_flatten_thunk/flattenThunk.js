@@ -32,3 +32,23 @@ const func3 = (cb) => {
 flattenThunk(func3)((error, data) => {
   console.log(data) // 'ok'
 })
+
+
+/**
+ * @param {Thunk} thunk
+ * @return {Thunk}
+ */
+function flattenThunk(thunk) {
+  return function(callback) {
+    const callbackWrapper = (err, data) => {
+      if(err) {
+        callback(err);
+      } else if (typeof data === 'function') {
+        data(callbackWrapper);
+      } else {
+        callback(err, data);
+      }
+    }
+    thunk(callbackWrapper);
+  }
+}

@@ -1,4 +1,4 @@
-class MyURLSearchParams {
+  class MyURLSearchParams {
   /**
    * @params {string} init
    */
