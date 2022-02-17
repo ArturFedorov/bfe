@@ -15,10 +15,7 @@ let validSquare = function(p1, p2, p3, p4) {
     return Math.pow(point2[0] - point1[0], 2) + Math.pow(point2[1] - point1[1], 2);
   };
 
-  return (distance(p1, p2) !== 0) &&
-    (distance(p1, p2) === distance(p1, p3) && distance(p3, p4) === distance(p4, p2)) &&
-    (distance(p1, p4) === distance(p2, p3));
-
+  return (distance(p1, p2) !== 0) && (distance(p1, p2) === distance(p1, p3) && distance(p3, p4) === distance(p4, p2)) && (distance(p1, p4) === distance(p2, p3));
 };
 
 
